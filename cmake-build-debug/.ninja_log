@@ -1,0 +1,5 @@
+# ninja log v6
+54	709	7542572587908475	CMakeFiles/new_target.dir/helper/helper.cpp.obj	cc32a1f72c505509
+4	402	7542592013925497	build.ninja	31ada8dd7cd25baf
+46	717	7542572587822393	CMakeFiles/new_target.dir/main.cpp.obj	cf68c516c52972e6
+718	1147	7542572594551043	new_target.exe	66aa591893911644
