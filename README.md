@@ -1,7 +1,9 @@
 # caso_final_integrador_3
 https://github.com/Juands225/caso_final_integrador_3.git
-
-Trabajos prácticos
+<details>
+    <summary>TRABAJOS PRÁCTICOS</summary>
+    
+```
 1. Carga de scripts en tiny-lisp
 El módulo Labmain.cpp define la función load_script(), que se utiliza para cargar un script en la memoria y aplicarle la coloración sintáctica. Esta función se basa en la librería estándar de C.
 
@@ -16,12 +18,22 @@ El usuario proporciona un nombre de archivo que no existe.
 El archivo proporcionado no se puede abrir por alguna razón.
 Se produce un error de lectura durante la lectura del archivo.
 Para manejar estos y otros errores potenciales, es posible que desees agregar comprobaciones de errores adicionales y manejar los fallos de manera más sofisticada.
+```
 
-Notas
-Este ejercicio no requiere el uso de funciones seguras específicas de Microsoft (las funciones con sufijo _s). En cambio, deberías usar las funciones estándar de C/C++ disponibles en todas las plataformas y compiladores, como fopen, printf y scanf.
+</details>
+<details>
+    <summary>NOTAS</summary>
 
+```
+Este ejercicio no requiere el uso de funciones seguras específicas de Microsoft (las funciones con sufijo _s). En cambio, deberías usar las funciones estándar de C/C++ 
+disponibles en todas las plataformas y compiladores, como fopen, printf y scanf.
+```
 
-Rúbrica
+</details>
+<details>
+    <summary>RUBRICA</summary>
+    
+```
 Carga de scripts (50 puntos)
 
 Se proporciona una implementación correcta de load_script(const char* filename, bool show_script = false) que carga correctamente el archivo dado y muestra su contenido si show_script es verdadero. (25 puntos)
@@ -32,8 +44,14 @@ El código tiene un manejo de errores sólido y completo para el caso de que el 
 El código tiene un manejo de errores sólido y completo para el caso de que el archivo proporcionado no se pueda abrir por alguna razón. (15 puntos)
 El código tiene un manejo de errores sólido y completo para el caso de que se produzca un error de lectura durante la lectura del archivo. (20 puntos)
 Total: 100 puntos
+```
 
-Propuesta de solución
+</details>
+<details>
+        <summary>PROPUESTA DE SOLUCION</summary>
+    
+```
+## Propuesta de solución
 En CLion, las funciones seguras de la biblioteca estándar de C (*_s funciones) generalmente no están disponibles porque estas son específicas de Microsoft y no son estándar de C/C++. Por lo tanto, en lugar de utilizar funciones como fopen_s, printf_s y scanf_s, puedes usar sus equivalentes no seguros, que son fopen, printf y scanf.
 
 A continuación se muestra cómo se podría reescribir el código para CLion:
@@ -104,6 +122,9 @@ void load_script()
     scanf("%499s", filename);
     load_script(filename, true);
 }
+```
+
+</details>
 Este código debería compilar y funcionar en CLion sin necesidad de agregar la directiva _CRT_SECURE_NO_WARNINGS, ya que no se están utilizando las versiones seguras específicas de Microsoft de las funciones de la biblioteca estándar de C.
 
 Por último, ten en cuenta que este código no realiza una comprobación completa de errores y no es robusto contra varios tipos de errores de entrada. Dependiendo de tu caso de uso específico, es posible que desees agregar comprobaciones de errores adicionales y manejar los fallos de manera más sofisticada.
