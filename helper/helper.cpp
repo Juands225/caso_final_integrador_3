@@ -3,49 +3,50 @@
 #include <cstdio>
 #include "helper.h"
 
-using namespace std;
-
 // Función para cargar un script desde un archivo
 void load_script(const char *filename, bool show_script) {
-    string script;
+    std::string script;
     FILE *file = nullptr;
 
     try {
+        // Intentar abrir el archivo
         file = fopen(filename, "rb");
         if (!file) {
-            cerr << "Error: No se pudo abrir el archivo '" << filename << "'." << endl;
+            std::perror("Error al abrir el archivo"); // Diagnóstico detallado
             return;
         }
 
+        // Leer contenido del archivo
         char buffer[4001];
         size_t bytesRead;
-
         while ((bytesRead = fread(buffer, 1, 4000, file)) > 0) {
             buffer[bytesRead] = '\0';
             script.append(buffer);
         }
 
+        // Verificar si ocurrió un error durante la lectura
         if (ferror(file)) {
-            throw runtime_error("Error durante la lectura del archivo.");
+            throw std::runtime_error("Error durante la lectura del archivo.");
         }
 
-        fclose(file);
+        fclose(file); // Cerrar archivo
         file = nullptr;
 
+        // Mostrar el contenido del archivo si se solicita
         if (show_script) {
-            cout << "\033[34m\033[47m"; // Color azul sobre fondo blanco
-            cout << script << endl;
-            cout << "\033[0m";         // Reset de colores
+            std::cout << "\033[34m\033[47m"; // Color azul sobre fondo blanco
+            std::cout << script << std::endl;
+            std::cout << "\033[0m";         // Reset de colores
         }
 
-        cout << "[INFO] El archivo fue cargado correctamente." << endl;
+        std::cout << "[INFO] El archivo fue cargado correctamente." << std::endl;
 
-    } catch (const exception &e) {
-        cerr << "Excepción: " << e.what() << endl;
-        if (file) fclose(file);
+    } catch (const std::exception &e) {
+        std::cerr << "Excepción: " << e.what() << std::endl;
+        if (file) fclose(file); // Cerrar el archivo si está abierto
     } catch (...) {
-        cerr << "Error desconocido durante la carga del archivo." << endl;
-        if (file) fclose(file);
+        std::cerr << "Error desconocido durante la carga del archivo." << std::endl;
+        if (file) fclose(file); // Cerrar el archivo si está abierto
     }
 }
 
@@ -53,9 +54,9 @@ void load_script(const char *filename, bool show_script) {
 void load_script() {
     char filename[500];
 
-    cout << "Ingrese el nombre del archivo: ";
-    if (scanf("%499s", filename) != 1) {
-        cerr << "Error al leer el nombre del archivo." << endl;
+    std::cout << "Ingrese el nombre del archivo (con extensión): ";
+    if (std::scanf("%499s", filename) != 1) {
+        std::cerr << "Error al leer el nombre del archivo." << std::endl;
         return;
     }
 
