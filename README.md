@@ -125,6 +125,47 @@ void load_script()
 ```
 
 </details>
+<details>
+    <summary>FINAL</summary>
+    
+```
 Este código debería compilar y funcionar en CLion sin necesidad de agregar la directiva _CRT_SECURE_NO_WARNINGS, ya que no se están utilizando las versiones seguras específicas de Microsoft de las funciones de la biblioteca estándar de C.
 
 Por último, ten en cuenta que este código no realiza una comprobación completa de errores y no es robusto contra varios tipos de errores de entrada. Dependiendo de tu caso de uso específico, es posible que desees agregar comprobaciones de errores adicionales y manejar los fallos de manera más sofisticada.
+```
+
+</details>
+<details>
+    <summary>CORRECION DE GONZALO MULLER</summary>
+
+```
+1. Buffer Overflow en filename
+Problema: La entrada para el nombre del archivo (scanf("%499s", filename)) podría desbordarse si el usuario introduce más de 499 caracteres.
+Solución: Utilizar std::cin con std::string para manejar cadenas dinámicamente y evitar este riesgo.
+
+
+2. Acceso fuera de límites en el buffer buf
+Problema: El buffer buf de tamaño 4001 puede producir un acceso fuera de límites porque buf[c] = 0 no asegura que c esté dentro de los límites.
+Solución: Asegurar que fread no lea más bytes de los esperados y usar script.append(buf, c) para evitar asignaciones incorrectas.
+
+
+3. Colores no se restablecen
+Problema: Los códigos de color ANSI (\033[34m y \033[47m) no se restablecen después de mostrar el script.
+Solución: Añadir un código ANSI para restablecer los colores (\033[0m) al final del texto coloreado.
+
+
+4. Fallo al cerrar el archivo
+Problema: Si ocurre una excepción después de abrir el archivo, este podría no cerrarse debido a la falta de manejo adecuado de recursos.
+Solución: Usar std::unique_ptr o try/finally para garantizar que el archivo se cierra.
+
+
+5. Uso excesivo de catch genérico
+Problema: El uso de catch (...) captura cualquier excepción, incluyendo las que no están relacionadas con la lectura del archivo, lo cual no siempre es deseado.
+Solución: Manejar excepciones específicas, como std::ios_base::failure o errores relacionados con la E/S.
+
+
+6. Duplicación de código para load_script
+Problema: Hay dos funciones load_script, lo cual es redundante e innecesario.
+Solución: Simplificar la lógica de load_script() para llamar internamente a la versión con argumentos.
+```
+</details>
